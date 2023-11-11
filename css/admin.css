@@ -1,0 +1,128 @@
+body{
+  color: #526348;
+  padding: 15px;
+}
+main{
+  height: 83vh; 
+  background-color: #eff2e3;
+}
+::-webkit-scrollbar {
+  width: 12px; 
+}
+main::-webkit-scrollbar-thumb {
+  background: #63725a;
+  border-radius: 50px;
+}
+main::-webkit-scrollbar-track {
+  background: #b9c0b5;
+  border-radius: 50px;
+}
+#bookTable .description::-webkit-scrollbar-track {
+  background-color: #b9c0b5;
+  border-radius: 50px;
+}
+#bookTable .description::-webkit-scrollbar-thumb {
+  background: #63725a;
+  border-radius: 50px;
+}
+.container-fluid.dashboard.rounded{
+  height: 200px;
+  background-color: #d3d8c3;
+}
+.icon-size{
+  width: 30px;
+  font-size: 20px;
+}
+.fa.fa-ellipsis-v{
+  color: white;
+}
+.nav-item1{
+
+}
+.nav-link.sidebar {
+  background-color: #8c927a;
+
+  color: white;
+  border: solid;
+}
+.nav-link.sidebar.active {
+  background-color: #414f39;
+  color: white;
+}
+.nav-link.sidebar:hover {
+  background-color: #526348;
+  color: white;
+}
+
+.nav-item2{
+  display: flex;
+  flex-grow: 1;
+  flex-basis: 200;
+  flex-wrap: wrap;
+}
+.nav-link.overview.rounded:hover {
+  background-color: #526348;
+  color: white;
+}
+.nav-link.overview.rounded{
+  background-color: #8c927a;
+  color: white;
+  height: 83px;
+  flex-grow: 1;
+  flex-basis: 200;
+  flex-wrap: wrap;
+  margin: 5px;
+  margin-left: 0;
+
+}
+.nav-link.overview.rounded span {
+  font-size: 50px; margin-right:5px;
+}
+.container-fluid.table{
+  margin-top: 30px;
+}
+.form-control.search, .form-select {
+  padding-left: 16px; 
+  border-top-left-radius:40px;
+  border-bottom-left-radius:40px;
+  width:350px; 
+  border: solid #526348 2px;
+  background-color: #eff2e3;
+}
+.container-fluid.overflow-y-scroll.rounded.bg-dark.p-4{
+  height: 370px;
+  background-color: red;
+}
+#bookTable .description{
+  width: 300px;
+ }
+.left-align-title {
+  text-align: left !important;
+}
+.title-container {
+  position: relative;
+  border-top: 2px solid #313b2b; 
+}
+
+/* Add book*/
+.custom-modal-class {
+  background-color: #b9c0b5;
+  color: #313b2b;
+}
+.custom-modal-class input {
+  border: solid 1px #313b2b;
+}
+.input-group.mb-3 span {
+  background-color: #313b2b;
+  color: white;
+  border: solid 1px #313b2b;
+}
+.custom-confirm-button-class {
+  background-color: #59763b !important;
+  width: 50vh !important;
+}
+.custom-cancel-button-class {
+  background-color: #85917e !important;
+  width: 50vh !important;
+}
+

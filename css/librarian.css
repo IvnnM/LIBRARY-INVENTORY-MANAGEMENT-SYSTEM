@@ -1,0 +1,71 @@
+
+body{
+  color: #526348;
+  padding: 15px;
+}
+main{
+  height: 83vh; 
+  background-color: #eff2e3;
+}
+::-webkit-scrollbar {
+  width: 12px; 
+}
+main::-webkit-scrollbar-thumb {
+  background: #63725a;
+  border-radius: 50px;
+}
+main::-webkit-scrollbar-track {
+  background: #b9c0b5;
+  border-radius: 50px;
+}
+.icon-size{
+  font-size: 20px;
+}
+.nav-item1{
+
+}
+.nav-link.sidebar {
+  background-color: #8c927a;
+  color: white;
+  border: solid;
+}
+.nav-link.sidebar.active {
+  background-color: #414f39;
+  color: white;
+}
+.nav-link.sidebar:hover {
+  background-color: #526348;
+  color: white;
+}
+#bookTable .description::-webkit-scrollbar-track {
+  background-color: #b9c0b5;
+  border-radius: 50px;
+}
+#bookTable .description::-webkit-scrollbar-thumb {
+  background: #63725a;
+  border-radius: 50px;
+}
+#bookTable .description{
+  width: 300px;
+ }
+.form-select{
+  padding-left: 16px; 
+  border-top-left-radius:40px;
+  border-bottom-left-radius:40px;
+  width:350px; 
+  border: solid #526348 2px;
+  background-color: #eff2e3;
+}
+.form-control.search {
+  padding-left: 16px; 
+  border-top-right-radius:40px;
+  border-bottom-right-radius:40px;
+  width:350px; 
+  border: solid #526348 2px;
+  background-color: #eff2e3;
+}
+.btn-outline-danger, .btn-outline-success {
+  font-size: 10px;
+  font-weight: bold;
+  min-width: 100px;
+}

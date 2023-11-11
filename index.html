@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="./js/index.js"></script>
+
+
+
+</head>
+
+<body>
+
+  <div class="container-fluid" id="logo">
+    <img src="./images/BSU-Logo.png" alt="school-logo">
+  </div>
+  <div class="ScriptTop" style="background-image: url(./images/index-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 60vh;">
+  </div>
+<div style="background-color: white;">
+  <center>
+  <header class="ScriptHeader">
+    <div class="col-rt-2">
+      <div class="text-bg-danger p-2"></div>
+    </div>
+    <div class="rt-container">
+      <div class="col-rt-12">
+        <div class="rt-heading">
+          <h1>LIBRARY INVENTORY SYSTEM</h1>
+          <p>Batangas State University The National Engineering University</p>
+        </div>
+      </div>
+    </div>
+  </header>
+  </center>
+  <div class="rt-container">
+    <div class="col-rt-12">
+      <center>
+        <!---->
+        <input type="range" class="form-range custom-range" min="0" max="2" id="customRange2" value="0"
+        data-bs-toggle="tooltip" data-bs-placement="right" title="Slide the control to choose your access level">
+        <br>
+        <a href="adminlogin.html" id="adminButton" style="display: none;"> <!---->
+          <button data-bs-toggle="tooltip" data-bs-placement="right" title="Admin">
+            <i class="fa fa-user-secret fa-3x"></i>
+          </button><br>
+          <label for="adminButton">Admin</label>
+        </a>
+        <a href="librarianlogin.html" id="librarianButton" style="display: none;"><!---->
+          <button data-bs-toggle="tooltip" data-bs-placement="right" title="Librarian">
+            <i class="fa fa-id-card fa-3x"></i>
+          </button><br>
+          <label for="librarianButton">Librarian</label>
+        </a>
+        <a href="clientlogin.html" id="clientButton" >
+          <button data-bs-toggle="tooltip" data-bs-placement="right" title="Client">
+            <i class="fa fa-user-circle fa-3x"></i>
+          </button><br>
+          <label for="clientButton">Client</label>
+        </a>
+
+      </center>
+    </div>
+  </div>
+</div>
+  <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+      new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  </script>
+  <!--  -->
+  <script>
+    const customRange2 = document.getElementById("customRange2");
+    const adminButton = document.getElementById("adminButton");
+    const librarianButton = document.getElementById("librarianButton");
+    const clientButton = document.getElementById("clientButton");
+  
+    customRange2.addEventListener("input", function () {
+      const rangeValue = parseInt(this.value, 10);
+      if (rangeValue === 2) {
+        adminButton.style.display = "block";
+        librarianButton.style.display = "none";
+        clientButton.style.display = "none";
+      } else if (rangeValue === 1) {
+        adminButton.style.display = "none";
+        librarianButton.style.display = "block";
+        clientButton.style.display = "none";
+      } else {
+        adminButton.style.display = "none";
+        librarianButton.style.display = "none";
+        clientButton.style.display = "block";
+      }
+    });
+  </script>
+
+</body>
+</html>
