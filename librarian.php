@@ -41,9 +41,13 @@ $today = date('Y-m-d');
         <div class="col-md-11 col-lg-11 d-md-block rounded-top" style="background-color: #eff2e3;">
           <h5 style="margin:0;">Inventory</h5>
           <span style="font-size: small;">Today is <?php echo $today; ?></span>  
-            <div class="Login">
-                <?php if (isset($_SESSION['user_id'])): ?>
-            </div> 
+          <div>
+            <h2>Hi, <span><?= htmlspecialchars($user["fullname"]) ?></span></h2>
+            <p>Welcome to the Librarian Page! Manage book inventory, track ins and outs, and view current stocks.</p>
+          </div>
+          <div class="Login">
+              <?php if (isset($_SESSION['user_id'])): ?>
+          </div> 
         </div>
       </div>
   </div>
@@ -84,6 +88,7 @@ $today = date('Y-m-d');
                     <select class="form-select" id="sortSelect" aria-label="Sort by Transaction Type" style="margin-bottom: 10px; width:250px;">
                         <option value="all" selected>All Books</option>
                         <option value="Out of Stock">Out of Stock</option>
+                        <option value="Today's New Release">New Release Books</option>
                     </select>
                 </div>
 
@@ -205,6 +210,11 @@ $today = date('Y-m-d');
       if (selectedOption === "Out of Stock") {
         table.find('tbody tr:not(:has(td:contains("Out of Stock")))').hide();
         table.find('tbody tr:has(td:contains("Out of Stock"))').show();
+      } else if (selectedOption === "Today's New Release") {
+        // Hide rows where the publication date is not today
+        table.find('tbody tr:not(:contains("' + '<?php echo $today; ?>' + '"))').hide();
+        // Show rows where the publication date is today
+        table.find('tbody tr:contains("' + '<?php echo $today; ?>' + '")').show();
       } else {
         table.find('tbody tr').show();
       }
