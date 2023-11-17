@@ -85,7 +85,7 @@ main::-webkit-scrollbar-track {
   border-radius:40px;
   border: solid #526348 2px;
   background-color: #eff2e3;
-  margin-bottom: 5px; width:130px;
+  margin-bottom: 10px; width:130px;
 }
 #sortSelect{
   width: 200px;; 
