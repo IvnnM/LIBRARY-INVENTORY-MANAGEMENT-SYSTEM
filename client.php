@@ -39,10 +39,14 @@
         </div>
         <div class="col-md-11 col-lg-11 d-md-block rounded-top" style="background-color: #eff2e3;">
           <h5 style="margin:0;">Library</h5>
-          <span style="font-size: small;">Today is <?php echo $today; ?></span>  
-            <div class="Login">
-                <?php if (isset($_SESSION['user_id'])): ?>
-            </div> 
+          <span style="font-size: small;">Today is <?php echo $today; ?></span> 
+          <div>
+            <h2>Hi, <span><?= htmlspecialchars($user["fullname"]) ?></span></h2>
+            <p>Welcome to the Client Page! Explore available and new release books in the library.</p>
+          </div>
+          <div class="Login">
+              <?php if (isset($_SESSION['user_id'])): ?>
+          </div> 
         </div>
       </div>
   </div>
