@@ -81,7 +81,7 @@ main::-webkit-scrollbar-track {
 .container-fluid.table{
   margin-top: 30px;
 }
-.form-control.search, .form-select {
+.form-control.search, #sortSelect{
   padding-left: 16px; 
   border-top-left-radius:40px;
   border-bottom-left-radius:40px;
@@ -89,6 +89,21 @@ main::-webkit-scrollbar-track {
   border: solid #526348 2px;
   background-color: #eff2e3;
 }
+#sort {
+  display: flex;
+  flex-wrap: wrap;
+}
+.d-flex .form-select.sort{
+  flex-grow: 1;
+  flex-basis: 200;
+  padding-left: 16px; 
+  margin-left: 5px;
+  border-radius:40px;
+  border: solid #526348 2px;
+  background-color: #eff2e3;
+  margin-bottom: 5px; width:130px;
+}
+
 .container-fluid.overflow-y-scroll.rounded.bg-dark.p-4{
   height: 370px;
   background-color: red;
