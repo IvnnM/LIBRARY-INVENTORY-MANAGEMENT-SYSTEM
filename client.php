@@ -80,14 +80,39 @@
             
             <div class="container-fluid table" id="Inventory" style="padding: 0;">
               <h5>Available Books</h5>
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-between" id="sort">
                   <form class="d-flex" role="bookSearch">
                       <input class="form-control search" type="text" id="bookSearchInput" placeholder="Search by id, title or ISBN" aria-label="Search" style="margin-bottom: 10px; width:600px;">
                   </form>
-                  <select class="form-select" id="sortSelect" aria-label="Sort by Transaction Type" style="margin-bottom: 10px; width:250px;">
+
+                  <div class="d-flex" >
+                    <select class="form-select author" id="authorDropdown" aria-label="Sort by Author">
+                     <option value="All Authors">All Authors</option>
+                      <?php
+                        $sql = "SELECT DISTINCT author FROM books";
+                        $result = $con->query($sql);
+
+                        while ($row = $result->fetch_assoc()) {
+                          echo "<option value='" . $row['author'] . "'>" . $row['author'] . "</option>";
+                        }
+                      ?>
+                    </select>
+                    <select class="form-select genre" id="genreDropdown" aria-label="Sort by Genre">
+                      <option value="All Genres">All Genres</option>
+                      <?php
+                        $sql = "SELECT DISTINCT genre FROM books";
+                        $result = $con->query($sql);
+
+                        while ($row = $result->fetch_assoc()) {
+                          echo "<option value='" . $row['genre'] . "'>" . $row['genre'] . "</option>";
+                        }
+                      ?>
+                    </select>
+                    <select class="form-select" id="sortSelect" aria-label="Sort by Transaction Type">
                       <option value="all" selected>All Books</option>
                       <option value="Today's New Release">Today's New Release</option>
-                  </select>
+                    </select> 
+                  </div>
               </div>
 
               <div class="container-fluid overflow-y-scroll rounded bg-dark p-4">
@@ -205,6 +230,46 @@
   });
 </script>
 <script>
+  $(document).ready(function() {
+    var originalAuthorOptions = $('#authorDropdown option').clone();
+
+    var defaultGenreValue = $('#genreDropdown').val();
+
+    $('#authorDropdown').change(function() {
+        var selectedAuthor = $(this).val();
+        var table = $('#bookTable');
+
+        // Reset the genre dropdown to its default value
+        $('#genreDropdown').val(defaultGenreValue);
+
+        if (selectedAuthor !== "All Authors") {
+            table.find('tbody tr:not(:contains("' + selectedAuthor + '"))').hide();
+            table.find('tbody tr:contains("' + selectedAuthor + '")').show();
+        } else {
+            table.find('tbody tr').show();
+        }
+    });
+
+    $('#genreDropdown').change(function() {
+        var selectedGenre = $(this).val();
+        var table = $('#bookTable');
+
+        // Reset the author dropdown to its default value
+        $('#authorDropdown').empty().append(originalAuthorOptions);
+
+        if (selectedGenre !== "All Genres") {
+            table.find('tbody tr:not(:contains("' + selectedGenre + '"))').hide();
+            table.find('tbody tr:contains("' + selectedGenre + '")').show();
+        } else {
+            table.find('tbody tr').show();
+        }
+    });
+  });
+</script>
+
+
+
+<script>
     function refreshPage() {
       location.reload();
     }
@@ -225,6 +290,7 @@
         });
     });
 </script>
+
 <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     tooltipTriggerList.forEach(function (tooltipTriggerEl) {
