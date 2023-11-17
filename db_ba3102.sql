@@ -27,8 +27,8 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `books`
 --
-
-CREATE TABLE `books` (
+DROP TABLE IF EXISTS `books`;
+CREATE TABLE IF NOT EXISTS `books` (
   `bookID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `title` varchar(255) NOT NULL,
   `author` varchar(255) NOT NULL,
@@ -44,24 +44,34 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`title`, `author`, `genre`, `ISBN`, `description`, `quantity`, `publication_date`) VALUES
-('Book 1', 'Author 1', 'Genre 1', 'ISBN123456', 'Description of Book 1', 10, '2022-01-15'),
-('Book 2', 'Author 2', 'Genre 2', 'ISBN234567', 'Description of Book 2', 15, '2022-02-20'),
-('Book 3', 'Author 3', 'Genre 3', 'ISBN345678', 'Description of Book 3', 8, '2022-03-25'),
-('Book 4', 'Author 1', 'Genre 4', 'ISBN456789', 'Description of Book 4', 20, '2022-04-10'),
-('Book 5', 'Author 1', 'Genre 1', 'ISBN101112', 'Description of Book 5', 20, '2022-05-05'),
-('Book 6', 'Author 1', 'Genre 1', 'ISBN789012', 'Description of Book 6', 15, '2022-06-15'),
-('Book 7', 'Author 2', 'Genre 2', 'ISBN890123', 'Description of Book 7', 12, '2022-07-20'),
-('Book 8', 'Author 2', 'Genre 2', 'ISBN901234', 'Description of Book 8', 18, '2022-08-25'),
-('Book 9', 'Author 2', 'Genre 2', 'ISBN012345', 'Description of Book 9', 25, '2022-09-10'),
-('Book 10', 'Author 3', 'Genre 3', 'ISBN123456', 'Description of Book 10', 10, '2022-10-05');
+('Book 1', 'Author 1', 'Genre 1', 'ISBN10101', 'Description of Book 1', 10, '2023-01-15'),
+('Book 2', 'Author 2', 'Genre 2', 'ISBN99999', 'Description of Book 2', 15, '2023-02-20'),
+('Book 3', 'Author 3', 'Genre 3', 'ISBN88888', 'Description of Book 3', 8, '2023-03-25'),
+('Book 4', 'Author 1', 'Genre 4', 'ISBN77777', 'Description of Book 4', 20, '2023-04-10'),
+('Book 5', 'Author 1', 'Genre 1', 'ISBN66666', 'Description of Book 5', 0, '2023-05-05'),
+('Book 6', 'Author 1', 'Genre 1', 'ISBN55555', 'Description of Book 6', 15, '2023-06-15'),
+('Book 7', 'Author 2', 'Genre 2', 'ISBN44444', 'Description of Book 7', 12, '2023-07-20'),
+('Book 8', 'Author 2', 'Genre 2', 'ISBN33333', 'Description of Book 8', 18, '2023-08-25'),
+('Book 9', 'Author 2', 'Genre 2', 'ISBN022222', 'Description of Book 9', 25, '2023-09-10'),
+('Book 10', 'Author 3', 'Genre 3', 'ISBN11111', 'Description of Book 10', 0, '2022-10-05'),
+('Book 11', 'Author 3', 'Genre 4', 'ISBN12345', 'Description of Book 11', 8, '2023-11-15'),
+('Book 12', 'Author 4', 'Genre 5', 'ISBN67890', 'Description of Book 12', 15, '2023-12-20'),
+('Book 13', 'Author 4', 'Genre 5', 'ISBN13579', 'Description of Book 13', 20, '2023-01-25'),
+('Book 14', 'Author 5', 'Genre 6', 'ISBN24680', 'Description of Book 14', 10, '2023-02-10'),
+('Book 15', 'Author 6', 'Genre 7', 'ISBN98765', 'Description of Book 15', 0, '2023-03-05'),
+('Book 16', 'Author 6', 'Genre 7', 'ISBN11223', 'Description of Book 16', 18, '2023-04-15'),
+('Book 17', 'Author 7', 'Genre 8', 'ISBN44556', 'Description of Book 17', 12, '2023-05-20'),
+('Book 18', 'Author 7', 'Genre 8', 'ISBN77889', 'Description of Book 18', 22, '2023-06-25'),
+('Book 19', 'Author 8', 'Genre 9', 'ISBN99000', 'Description of Book 19', 0, '2023-07-10'),
+('Book 20', 'Author 8', 'Genre 9', 'ISBN11222', 'Description of Book 20', 30, '2023-08-05');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `book_transactions`
 --
-
-CREATE TABLE `book_transactions` (
+DROP TABLE IF EXISTS `book_transactions`;
+CREATE TABLE IF NOT EXISTS `book_transactions` (
   `transactionID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `userID` int(11) NOT NULL,
   `bookID` int(11) NOT NULL,
@@ -76,24 +86,24 @@ CREATE TABLE `book_transactions` (
 
 -- Inserting data into `book_transactions`
 INSERT INTO `book_transactions` (`userID`, `bookID`, `inQuantity`, `outQuantity`, `date`) VALUES
-(2, 6, 2, 0, '2023-11-02 09:20:17'),
-(3, 7, 0, 1, '2023-11-02 09:20:23'),
-(2, 8, 1, 0, '2023-11-02 09:20:29'),
-(3, 9, 0, 3, '2023-11-03 04:20:00'),
-(3, 10, 2, 0, '2023-11-03 06:05:00'),
-(3, 11, 4, 0, '2023-11-03 03:14:51'),
-(2, 12, 0, 5, '2023-11-03 03:20:58'),
-(3, 13, 0, 5, '2023-11-03 04:53:56'),
-(3, 14, 1, 0, '2023-11-03 05:08:34'),
-(3, 15, 0, 1, '2023-11-03 05:08:45');
+(2, 6, 2, 0, '2023-11-19 09:20:17'),
+(2, 7, 0, 1, '2023-11-19 09:20:23'),
+(2, 8, 1, 0, '2023-11-20 09:20:29'),
+(2, 9, 0, 3, '2023-11-20 04:20:00'),
+(2, 10, 2, 0, '2023-11-21 06:05:00'),
+(3, 11, 4, 0, '2023-11-21 03:14:51'),
+(3, 12, 0, 5, '2023-11-23 03:20:58'),
+(3, 13, 0, 5, '2023-11-23 04:53:56'),
+(3, 14, 1, 0, '2023-11-24 05:08:34'),
+(3, 15, 0, 1, '2023-11-25 05:08:45');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
 --
-
-CREATE TABLE `users` (
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
   `userID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `fullname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -106,6 +116,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`fullname`, `email`, `password`, `role`) VALUES
-('Admin User', 'admin@g', '$2y$10$7WBXttrmFnqyZgP/w3hQCuj1UFGktv.zrkE7vVALTOhiOQa.LSSFq', 'Admin'),
-('Client User', 'client@g', '$2y$10$7WBXttrmFnqyZgP/w3hQCuj1UFGktv.zrkE7vVALTOhiOQa.LSSFq', 'Client'),
-('Librarian User', 'librarian@g', '$2y$10$7WBXttrmFnqyZgP/w3hQCuj1UFGktv.zrkE7vVALTOhiOQa.LSSFq', 'Librarian');
+('Admin Name', 'admin@g', '$2y$10$7WBXttrmFnqyZgP/w3hQCuj1UFGktv.zrkE7vVALTOhiOQa.LSSFq', 'Admin'),
+('Ivan D. Librarian', 'librarian@g', '$2y$10$7WBXttrmFnqyZgP/w3hQCuj1UFGktv.zrkE7vVALTOhiOQa.LSSFq', 'Librarian'),
+('Librarian Name', 'librarian2@g', '$2y$10$7WBXttrmFnqyZgP/w3hQCuj1UFGktv.zrkE7vVALTOhiOQa.LSSFq', 'Librarian'),
+('Medrano, Ivan D.', 'medrano@g', '$2y$10$7WBXttrmFnqyZgP/w3hQCuj1UFGktv.zrkE7vVALTOhiOQa.LSSFq', 'Client'),
+('Bautista, Chris John L.', 'bautista@g', '$2y$10$7WBXttrmFnqyZgP/w3hQCuj1UFGktv.zrkE7vVALTOhiOQa.LSSFq', 'Client'),
+('Panaligan, Jomari M.', 'panaligan@g', '$2y$10$7WBXttrmFnqyZgP/w3hQCuj1UFGktv.zrkE7vVALTOhiOQa.LSSFq', 'Client'),
+('Hernandez, Marc Andrei L.', 'hernandez@g', '$2y$10$7WBXttrmFnqyZgP/w3hQCuj1UFGktv.zrkE7vVALTOhiOQa.LSSFq', 'Client'),
+('Mendoza, Harvey L.', 'mendoza@g', '$2y$10$7WBXttrmFnqyZgP/w3hQCuj1UFGktv.zrkE7vVALTOhiOQa.LSSFq', 'Client');
