@@ -1,14 +1,20 @@
 <?php
   session_start();
   include './php/connection.php';
-  if (isset($_SESSION["user_id"])){
-
-    $sql = "SELECT * FROM users
-    WHERE userID = {$_SESSION["user_id"]}";
+  if (isset($_SESSION["user_id"])) {
+    $sql = "SELECT s.lastname, s.firstname FROM tb_client c
+            INNER JOIN tb_studinfo s ON c.studid = s.studid
+            WHERE c.clientID = {$_SESSION["user_id"]}";
 
     $result = $con->query($sql);
-    $user = $result->fetch_assoc();
-  }
+
+    if ($result) {
+        $user = $result->fetch_assoc();
+
+        // Now $user["lastname"] and $user["firstname"] contain the student's name.
+    }
+}
+
   $today = date('Y-m-d');
 ?>
 <!Doctype html>
@@ -41,7 +47,8 @@
           <h5 style="margin:0;">Library</h5>
           <span style="font-size: small;">Today is <?php echo $today; ?></span> 
           <div>
-            <h2>Hi, <span><?= htmlspecialchars($user["fullname"]) ?></span></h2>
+            <h2>Hi, <span><?= htmlspecialchars($user["lastname"] . " " . $user["firstname"]) ?></span></h2>
+
             <p>Welcome to the Client Page! Explore available and new release books in the library.</p>
           </div>
           <div class="Login">

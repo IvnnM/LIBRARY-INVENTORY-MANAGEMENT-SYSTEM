@@ -3,10 +3,19 @@ session_start();
 include './php/connection.php';
 
 if (isset($_SESSION["user_id"])) {
-    $sql = "SELECT * FROM users WHERE userID = {$_SESSION["user_id"]}";
-    $result = $con->query($sql);
-    $user = $result->fetch_assoc();
+  $sql = "SELECT e.lastname, e.firstname FROM tb_librarian l
+          INNER JOIN tbempinfo e ON l.empid = e.empid
+          WHERE l.librarianID = {$_SESSION["user_id"]}";
+
+  $result = $con->query($sql);
+
+  if ($result) {
+      $user = $result->fetch_assoc();
+
+      // Now $user["lastname"] and $user["firstname"] contain the librarian's name.
+  }
 }
+
 $today = date('Y-m-d');
 ?>
 
@@ -42,7 +51,8 @@ $today = date('Y-m-d');
           <h5 style="margin:0;">Inventory</h5>
           <span style="font-size: small;">Today is <?php echo $today; ?></span>  
           <div>
-            <h2>Hi, <span><?= htmlspecialchars($user["fullname"]) ?></span></h2>
+            <h2>Hi, <span><?= htmlspecialchars($user["lastname"] . " " . $user["firstname"]) ?></span></h2>
+
             <p>Welcome to the Librarian Page! Manage book inventory, track ins and outs, and view current stocks.</p>
           </div>
           <div class="Login">

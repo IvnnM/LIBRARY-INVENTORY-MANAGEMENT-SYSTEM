@@ -15,10 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["title"]) && isset($_PO
     $description = $_POST["description"];
     $quantity = $_POST["quantity"];
 
-    // Perform the insert into the database with CURRENT_TIMESTAMP for publication_date
-    $sql = "INSERT INTO books (title, author, genre, isbn, description, quantity, publication_date) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+    // Get the current date and time
+    $currentDate = date("Y-m-d H:i:s");
+
+    // Perform the insert into the database with the current date for publication_date
+    $sql = "INSERT INTO books (title, author, genre, isbn, description, quantity, publication_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("sssssi", $title, $author, $genre, $isbn, $description, $quantity);
+    $stmt->bind_param("ssssiss", $title, $author, $genre, $isbn, $description, $quantity, $currentDate);
 
     if ($stmt->execute()) {
         echo "Book added successfully!";

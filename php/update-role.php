@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["userID"]) && isset($_P
     echo "Received newRole: " . $newRole . "<br>";
 
     // Perform the update in the database
-    $sql = "UPDATE users SET role = ? WHERE userID = ?";
+    $sql = "UPDATE tb_client SET role = ? WHERE studid = ?";
     $stmt = $con->prepare($sql);
     $stmt->bind_param("si", $newRole, $userID);
 

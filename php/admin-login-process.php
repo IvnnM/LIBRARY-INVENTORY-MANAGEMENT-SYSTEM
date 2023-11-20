@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Use a prepared statement to avoid SQL injection
-    $sql = "SELECT * FROM `users` WHERE email = ?";
+    $sql = "SELECT * FROM `tb_admin` WHERE email = ?";
     $stmt = mysqli_prepare($con, $sql);
 
     if ($stmt) {
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $role = $user["role"];
                 session_start();
                 session_regenerate_id();
-                $_SESSION["user_id"] = $user["userID"];
+                $_SESSION["user_id"] = $user["adminID"];
                 if ($role === "Admin") {
                     $message = 'Successfully logged in as a Admin.';
                     $response = array(

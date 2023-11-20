@@ -2,14 +2,7 @@
 
 session_start();
 include './connection.php';
-if (isset($_SESSION["user_id"])){
 
-  $sql = "SELECT * FROM users
-  WHERE userID = {$_SESSION["user_id"]}";
-
-  $result = $con->query($sql);
-  $user = $result->fetch_assoc();
-}
 
 
 if (isset($_GET['search'])) {

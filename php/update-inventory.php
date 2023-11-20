@@ -1,5 +1,5 @@
 <?php
-session_start(); // Add this line to start the session
+session_start();
 
 include './connection.php';
 
