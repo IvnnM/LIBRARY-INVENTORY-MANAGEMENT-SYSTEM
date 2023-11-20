@@ -137,54 +137,97 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-//Accounts
-function editRole(userID, userEmail) {
+//Accounts<!-- Signup Form -->//Accounts<!-- Signup Form -->
+// Accounts
+function createLibrarianAccount() {
   Swal.fire({
-    title: 'Change Role',
-    html: roleDropdown(userEmail), // Pass the user's email to the function
-    input: 'select',
-    inputOptions: {
-      'Client': 'Client',
-      'Librarian': 'Librarian'
-    },
-    inputPlaceholder: 'Select a new role',
-    showCancelButton: true,
-    confirmButtonText: "Save",
-    inputValidator: (value) => {
-      if (value === '') {
-        return 'You need to select a role';
-      }
-      return null;
-    }
+      title: 'Librarian Signup',
+      html: librarianSignupForm(),
+      showCancelButton: true,
+      confirmButtonText: 'Sign Up',
+      cancelButtonText: 'Cancel',
+      showLoaderOnConfirm: true,
+      preConfirm: () => {
+          const empid = document.getElementById('librarianEmpId').value;
+          const email = document.getElementById('librarianEmail').value;
+          const password = document.getElementById('librarianPassword').value;
+
+          return signupLibrarian(empid, email, password);
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
   }).then((result) => {
-    if (result.isConfirmed) {
-      const selectedRole = result.value; // Get the selected role here
-      updateRole(userID, selectedRole);
-    }
+      // Check if the result is confirmed and success
+      if (result.isConfirmed && result.value.success) {
+          Swal.fire({
+              icon: 'success',
+              title: 'Librarian Account Created!',
+              text: 'Librarian account has been created successfully.',
+          });
+      }
   });
 }
-function roleDropdown(userEmail) {
+
+function librarianSignupForm() {
   return `
-    <div>
-      <label for="roleDropdown">Select a new role for 
-      <span id="userEmail" style="font-weight: bold;">${userEmail}</span></label>
-    </div>`;
+      <form id="librarianSignupForm">
+          <div class="form-group">
+              <label for="librarianEmpId">Employee ID:</label>
+              <input type="text" class="form-control" id="librarianEmpId" required>
+          </div>
+          <div class="form-group">
+              <label for="librarianEmail">Email:</label>
+              <input type="email" class="form-control" id="librarianEmail" required>
+          </div>
+          <div class="form-group">
+              <label for="librarianPassword">Password:</label>
+              <input type="password" class="form-control" id="librarianPassword" required>
+          </div>
+      </form>`;
 }
-function updateRole(userID, newRole) {
-  // Send an AJAX request to update the role
-  const xhr = new XMLHttpRequest();
-  xhr.open('POST', './php/update-role.php', true); // Specify the correct PHP file URL
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  xhr.onload = function () {
-    if (xhr.status === 200) {
-      Swal.fire('Role Updated!', '', 'success');
-      // You can update the role displayed in the table here if needed
-    } else {
-      Swal.fire('Error!', 'Role could not be updated.', 'error');
-    }
-  };
-  xhr.send(`userID=${userID}&newRole=${newRole}`);
+
+function signupLibrarian(empid, email, password) {
+  return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', './php/signup-librarian.php', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onload = function () {
+          if (xhr.status === 200) {
+              try {
+                  const response = JSON.parse(xhr.responseText);
+                  if (response.success) {
+                      resolve(response); // Pass the response to the resolve function
+                  } else {
+                      // Reject with error message
+                      reject(response.message || 'Librarian account creation failed.');
+                  }
+              } catch (error) {
+                  // Reject with parsing error
+                  reject('Error parsing server response.');
+              }
+          } else {
+              // Reject with server status error
+              reject('Librarian account creation failed. Server returned status: ' + xhr.status);
+          }
+      };
+      xhr.onerror = function () {
+          // Reject with network error
+          reject('Network error occurred.');
+      };
+      xhr.send(`empid=${encodeURIComponent(empid)}&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+  }).catch((error) => {
+      // Display Swal popup for errors
+      Swal.fire({
+          icon: 'warning',
+          title: 'Error',
+          text: error,
+          footer: '<a href="#" id="forgotPasswordLink">Forgot password?</a>',
+      });
+  });
 }
+
+
+
+
 
 
 function addBook() {

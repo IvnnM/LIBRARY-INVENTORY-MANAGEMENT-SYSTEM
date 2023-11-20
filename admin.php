@@ -3,7 +3,7 @@ session_start();
 include './php/connection.php';
 
 if (isset($_SESSION["user_id"])) {
-    $sql = "SELECT * FROM users WHERE userID = {$_SESSION["user_id"]}";
+    $sql = "SELECT * FROM tb_admin WHERE adminID = {$_SESSION["user_id"]}";
     $result = $con->query($sql);
     $user = $result->fetch_assoc();
 }
@@ -70,7 +70,7 @@ $total_todayspublished = getRecordCount($con, "books", "WHERE DATE(publication_d
             <div class="position-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item1 text-start">
-                        <a class="nav-link sidebar active" href="#dashboard">
+                        <a class="nav-link sidebar active" href="#dashboard" id="Dashboard">
                           <i class="fa fa-th-large icon-size"></i>Dashboard
                         </a>
                     </li>
@@ -420,10 +420,10 @@ $total_todayspublished = getRecordCount($con, "books", "WHERE DATE(publication_d
             </div>
           </div>
           <div class="container-fluid table" id="librarianTable" style="padding: 0;">
-            <h5>Librarian</h5>
+            <h5>Librarian Accounts</h5>
             <div class="container-fluid overflow-y-scroll rounded bg-dark p-4" >
               <?php
-                $sql = "SELECT * FROM users WHERE role = 'Librarian'";
+                $sql = "SELECT * FROM tb_librarian WHERE role = 'Librarian'";
                 $result = $con->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -431,20 +431,17 @@ $total_todayspublished = getRecordCount($con, "books", "WHERE DATE(publication_d
                     echo '
                     <thead>
                       <tr>
-                        <th scope="col">User ID</th>
+                        <th scope="col">Librarian ID</th>
                         <th scope="col">Full Name</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Role</th>
                       </tr>
                     </thead>';
                     while ($row = $result->fetch_assoc()) {
                         echo '<tbody class="table-group-divider">';
                         echo "<tr>";
-                        echo "<td>" . $row["userID"] . "</td>";
-                        echo "<td>" . $row["fullname"] . "</td>";
+                        echo "<td>" . $row["librarianID"] . "</td>";
+                        echo "<td>" . $row["empid"] . "</td>";
                         echo "<td>" . $row["email"] . "</td>";
-                        echo "<td>" . $row["role"] . "</td>";
-                        echo "<td><button class='btn' id='editRoleBtn' onclick='editRole(" . $row["userID"] . ", \"" . $row["email"] . "\")'><i class='fa fa-ellipsis-v' aria-hidden='true'></i></button></td>";
                         echo "</tr>";
                         echo '</tbody>';
                     }
@@ -457,14 +454,29 @@ $total_todayspublished = getRecordCount($con, "books", "WHERE DATE(publication_d
           </div>
           <div class="container-fluid table" id="userpage" style="padding: 0;">
             <div class="d-flex justify-content-between">
-                <h5>Accounts</h5>
+                <h5>Employee Accounts</h5>
+             
+
                 <form class="d-flex" style="margin-bottom: 5px;">
                     <input class="form-control search" type="text" id="userSearchInput" placeholder="Search by id, name or email" name="search" aria-label="Search">
                 </form>
             </div>
             <div class="container-fluid overflow-y-scroll rounded bg-dark p-4">
+              <div style="background-color: transparent;">
+                <button style="border: solid #526348 2px;
+                                background-color: #526348;
+                                border-radius: 50%;
+                                height: 33px;
+                                width: 33px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;"
+                        onclick="createLibrarianAccount()">
+                    <i class="fa fa-plus" aria-hidden="true" style="background-color: transparent; color: white;"></i>
+                </button>
+              </div>
               <?php
-                $sql = "SELECT * FROM users WHERE role != 'Admin'";
+                $sql = "SELECT * FROM tbempinfo ";
                 $result = $con->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -472,20 +484,20 @@ $total_todayspublished = getRecordCount($con, "books", "WHERE DATE(publication_d
                     echo '
                     <thead>
                       <tr>
-                        <th scope="col">User ID</th>
-                        <th scope="col">Full Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Role</th>
+                        <th scope="col">Employee ID</th>
+                        <th scope="col">Lastname</th>
+                        <th scope="col">Firstname</th>
+                        <th scope="col">Department</th>
                       </tr>
                     </thead>';
                     while ($row = $result->fetch_assoc()) {
                         echo '<tbody class="table-group-divider">';
                         echo "<tr>";
-                        echo "<td>" . $row["userID"] . "</td>";
-                        echo "<td>" . $row["fullname"] . "</td>";
-                        echo "<td>" . $row["email"] . "</td>";
-                        echo "<td>" . $row["role"] . "</td>";
-                        echo "<td><button class='btn' id='editRoleBtn' onclick='editRole(" . $row["userID"] . ", \"" . $row["email"] . "\")'><i class='fa fa-ellipsis-v' aria-hidden='true'></i></button></td>";
+                        echo "<td>" . $row["empid"] . "</td>";
+                        echo "<td>" . $row["lastname"] . "</td>";
+                        echo "<td>" . $row["firstname"] . "</td>";
+                        echo "<td>" . $row["department"] . "</td>";
+
                         echo "</tr>";
                         echo '</tbody>';
                     }

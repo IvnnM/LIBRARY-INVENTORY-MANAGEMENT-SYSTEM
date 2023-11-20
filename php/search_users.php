@@ -9,7 +9,8 @@ if (isset($_SESSION["user_id"])) {
     $search = $_GET['search'];
 
     // Build the SQL query to search for users based on name or email
-    $sql = "SELECT * FROM users WHERE role != 'Admin' AND (fullname LIKE '%$search%' OR email LIKE '%$search%' OR userID LIKE '%$search%')";
+    $sql = "SELECT * FROM tbempinfo WHERE (lastname LIKE '%$search%' OR firstname LIKE '%$search%' OR department LIKE '%$search%' OR empid LIKE '%$search%')";
+
 
     $result = $con->query($sql);
 
@@ -18,20 +19,19 @@ if (isset($_SESSION["user_id"])) {
       echo '
       <thead>
         <tr>
-          <th scope="col">User ID</th>
-          <th scope="col">Full Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Role</th>
+          <th scope="col">Employee ID</th>
+          <th scope="col">Lastname</th>
+          <th scope="col">Firstname</th>
+          <th scope="col">Department</th>
         </tr>
       </thead>';
       while ($row = $result->fetch_assoc()) {
         echo '<tbody class="table-group-divider">';
         echo "<tr>";
-        echo "<td>" . $row["userID"] . "</td>";
-        echo "<td>" . $row["fullname"] . "</td>";
-        echo "<td>" . $row["email"] . "</td>";
-        echo "<td>" . $row["role"] . "</td>";
-        echo "<td><button class='btn' id='editRoleBtn' onclick='editRole(" . $row["userID"] . ", \"" . $row["email"] . "\")'><i class='fa fa-ellipsis-v' aria-hidden='true'></i></button></td>";
+        echo "<td>" . $row["empid"] . "</td>";
+        echo "<td>" . $row["lastname"] . "</td>";
+        echo "<td>" . $row["firstname"] . "</td>";
+        echo "<td>" . $row["department"] . "</td>";
         echo "</tr>";
         echo '</tbody>';
       }
