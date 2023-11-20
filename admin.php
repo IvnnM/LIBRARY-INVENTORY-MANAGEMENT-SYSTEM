@@ -423,25 +423,30 @@ $total_todayspublished = getRecordCount($con, "books", "WHERE DATE(publication_d
             <h5>Librarian Accounts</h5>
             <div class="container-fluid overflow-y-scroll rounded bg-dark p-4" >
               <?php
-                $sql = "SELECT * FROM tb_librarian WHERE role = 'Librarian'";
+                $sql = "SELECT tl.librarianID, te.firstname, te.lastname, te.department, tl.email
+                        FROM tb_librarian tl
+                        JOIN tbempinfo te ON tl.empid = te.empid
+                        WHERE tl.role = 'Librarian'";
                 $result = $con->query($sql);
 
                 if ($result->num_rows > 0) {
                     echo '<table class="table table-dark table-hover">';
                     echo '
                     <thead>
-                      <tr>
-                        <th scope="col">Librarian ID</th>
-                        <th scope="col">Full Name</th>
-                        <th scope="col">Email</th>
-                      </tr>
+                        <tr>
+                            <th scope="col">Librarian ID</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Department</th>
+                        </tr>
                     </thead>';
                     while ($row = $result->fetch_assoc()) {
                         echo '<tbody class="table-group-divider">';
                         echo "<tr>";
                         echo "<td>" . $row["librarianID"] . "</td>";
-                        echo "<td>" . $row["empid"] . "</td>";
+                        echo "<td>" . $row["firstname"] . " " . $row["lastname"] . "</td>";
                         echo "<td>" . $row["email"] . "</td>";
+                        echo "<td>" . $row["department"] . "</td>";
                         echo "</tr>";
                         echo '</tbody>';
                     }
@@ -449,7 +454,8 @@ $total_todayspublished = getRecordCount($con, "books", "WHERE DATE(publication_d
                 } else {
                     echo "No records found";
                 }
-              ?>
+                ?>
+
             </div>
           </div>
           <div class="container-fluid table" id="userpage" style="padding: 0;">
