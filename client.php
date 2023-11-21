@@ -47,7 +47,7 @@
           <h5 style="margin:0;">Library</h5>
           <span style="font-size: small;">Today is <?php echo $today; ?></span> 
           <div>
-            <h2>Hi, <span><?= htmlspecialchars($user["lastname"] . " " . $user["firstname"]) ?></span></h2>
+            <h2>Hi, <span><?= htmlspecialchars($user["firstname"] . " " . $user["lastname"]) ?></span></h2>
 
             <p>Welcome to the Client Page! Explore available and new release books in the library.</p>
           </div>

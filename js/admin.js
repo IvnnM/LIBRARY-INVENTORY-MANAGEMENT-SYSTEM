@@ -138,51 +138,75 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 //Accounts<!-- Signup Form -->//Accounts<!-- Signup Form -->
-// Accounts
 function createLibrarianAccount() {
   Swal.fire({
-      title: 'Librarian Signup',
-      html: librarianSignupForm(),
-      showCancelButton: true,
-      confirmButtonText: 'Sign Up',
-      cancelButtonText: 'Cancel',
-      showLoaderOnConfirm: true,
-      preConfirm: () => {
-          const empid = document.getElementById('librarianEmpId').value;
-          const email = document.getElementById('librarianEmail').value;
-          const password = document.getElementById('librarianPassword').value;
+    title: 'Librarian Signup',
+    html: librarianSignupForm(),
+    showCancelButton: true,
+    confirmButtonText: 'Sign Up',
+    cancelButtonText: 'Cancel',
+    showLoaderOnConfirm: true,
+    preConfirm: () => {
+      // Validate the form before submitting
+      if (validateLibrarianForm()) {
+        const empid = document.getElementById('librarianEmpId').value;
+        const email = document.getElementById('librarianEmail').value;
+        const password = document.getElementById('librarianPassword').value;
 
-          return signupLibrarian(empid, email, password);
-      },
-      allowOutsideClick: () => !Swal.isLoading(),
-  }).then((result) => {
-      // Check if the result is confirmed and success
-      if (result.isConfirmed && result.value.success) {
-          Swal.fire({
-              icon: 'success',
-              title: 'Librarian Account Created!',
-              text: 'Librarian account has been created successfully.',
-          });
+        return signupLibrarian(empid, email, password);
+      } else {
+        // Return a Promise that rejects, so Swal will stay open
+        return Promise.reject('Invalid form input.');
       }
+    },
+    allowOutsideClick: () => !Swal.isLoading(),
+  }).then((result) => {
+    // Check if the result is confirmed and success
+    if (result.isConfirmed && result.value.success) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Librarian Account Created!',
+        text: 'Librarian account has been created successfully.',
+      });
+    }
   });
 }
 
 function librarianSignupForm() {
   return `
-      <form id="librarianSignupForm">
-          <div class="form-group">
-              <label for="librarianEmpId">Employee ID:</label>
-              <input type="text" class="form-control" id="librarianEmpId" required>
-          </div>
-          <div class="form-group">
-              <label for="librarianEmail">Email:</label>
-              <input type="email" class="form-control" id="librarianEmail" required>
-          </div>
-          <div class="form-group">
-              <label for="librarianPassword">Password:</label>
-              <input type="password" class="form-control" id="librarianPassword" required>
-          </div>
-      </form>`;
+    <form id="librarianSignupForm">
+        <div class="form-group">
+            <label for="librarianEmpId">Employee ID:</label>
+            <input type="text" class="form-control" id="librarianEmpId" required>
+        </div>
+        <div class="form-group">
+            <label for="librarianEmail">Email:</label>
+            <input type="email" class="form-control" id="librarianEmail" required>
+        </div>
+        <div class="form-group">
+            <label for="librarianPassword">Password:</label>
+            <input type="password" class="form-control" id="librarianPassword" required>
+        </div>
+    </form>`;
+}
+
+function validateLibrarianForm() {
+  const empid = document.getElementById('librarianEmpId').value;
+  const email = document.getElementById('librarianEmail').value;
+  const password = document.getElementById('librarianPassword').value;
+
+  if (!empid || !email || !password) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Incomplete Form',
+      text: 'Please fill in all fields.',
+    });
+    return false;
+  }
+
+  // You can add more specific validation checks for email, password, etc.
+
+  return true;
 }
 
 function signupLibrarian(empid, email, password) {
@@ -220,7 +244,6 @@ function signupLibrarian(empid, email, password) {
           icon: 'warning',
           title: 'Error',
           text: error,
-          footer: '<a href="#" id="forgotPasswordLink">Forgot password?</a>',
       });
   });
 }

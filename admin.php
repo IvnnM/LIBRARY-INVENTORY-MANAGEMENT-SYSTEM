@@ -422,6 +422,19 @@ $total_todayspublished = getRecordCount($con, "books", "WHERE DATE(publication_d
           <div class="container-fluid table" id="librarianTable" style="padding: 0;">
             <h5>Librarian Accounts</h5>
             <div class="container-fluid overflow-y-scroll rounded bg-dark p-4" >
+              <div style="background-color: transparent;">
+                <button style="border: solid #526348 2px;
+                                background-color: #526348;
+                                border-radius: 50%;
+                                height: 33px;
+                                width: 33px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;"
+                        onclick="createLibrarianAccount()">
+                    <i class="fa fa-plus" aria-hidden="true" style="background-color: transparent; color: white;"></i>
+                </button>
+              </div>
               <?php
                 $sql = "SELECT tl.librarianID, te.firstname, te.lastname, te.department, tl.email
                         FROM tb_librarian tl
@@ -468,19 +481,7 @@ $total_todayspublished = getRecordCount($con, "books", "WHERE DATE(publication_d
                 </form>
             </div>
             <div class="container-fluid overflow-y-scroll rounded bg-dark p-4">
-              <div style="background-color: transparent;">
-                <button style="border: solid #526348 2px;
-                                background-color: #526348;
-                                border-radius: 50%;
-                                height: 33px;
-                                width: 33px;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;"
-                        onclick="createLibrarianAccount()">
-                    <i class="fa fa-plus" aria-hidden="true" style="background-color: transparent; color: white;"></i>
-                </button>
-              </div>
+              
               <?php
                 $sql = "SELECT * FROM tbempinfo ";
                 $result = $con->query($sql);
