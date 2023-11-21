@@ -51,7 +51,7 @@ $today = date('Y-m-d');
           <h5 style="margin:0;">Inventory</h5>
           <span style="font-size: small;">Today is <?php echo $today; ?></span>  
           <div>
-            <h2>Hi, <span><?= htmlspecialchars($user["lastname"] . " " . $user["firstname"]) ?></span></h2>
+            <h2>Hi, <span><?= htmlspecialchars($user["firstname"] . " " . $user["lastname"]) ?></span></h2>
 
             <p>Welcome to the Librarian Page! Manage book inventory, track ins and outs, and view current stocks.</p>
           </div>

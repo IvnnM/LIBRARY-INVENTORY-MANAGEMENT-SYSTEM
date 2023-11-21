@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["empid"]) && isset($_PO
 
     if ($resultEmpId->num_rows > 0) {
         if ($resultLibrarian->num_rows > 0) {
-            echo json_encode(["success" => false, "message" => "Invalid empid. Employee is already a librarian."]);
+            echo json_encode(["success" => false, "message" => "Invalid id. Employee is already a librarian."]);
         } else {
             // Insert into tb_librarian
             $insertLibrarianQuery = "INSERT INTO tb_librarian (empid, email, password) VALUES (?, ?, ?)";
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["empid"]) && isset($_PO
             }
         }
     } else {
-        echo json_encode(["success" => false, "message" => "Invalid empid. Employee not found."]);
+        echo json_encode(["success" => false, "message" => "Invalid id. Employee not found."]);
     }
 } else {
     echo json_encode(["success" => false, "message" => "Invalid request"]);
