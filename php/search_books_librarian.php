@@ -37,8 +37,9 @@ if (isset($_GET['search'])) {
             echo "<td><div class='overflow-auto description' style='max-height: 100px;'>" . $row["description"] . "</div></td>";
             $quantity = $row["quantity"];
             echo "<td>" . ($quantity == 0 ? "Out of Stock" : $quantity) . "</td>";
-            echo "<td><button class='btn btn-outline-success' id='addBtn' onclick='handleInventory(\"IN\", {$row["bookID"]})'>IN</button></td>";
             echo "<td>" . $row["publication_date"]. "</td>";
+            echo "<td><button class='btn btn-outline-success' id='addBtn' onclick='handleInventory(\"IN\", {$row["bookID"]})'>IN</button></td>";
+           
         
             if ($quantity == 0) {
                 echo "<td><button class='btn btn-outline-danger' onclick='handleInventory(\"OUT\", {$row["bookID"]})' disabled>OUT</button></td>";
