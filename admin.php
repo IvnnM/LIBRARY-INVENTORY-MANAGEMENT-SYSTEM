@@ -187,7 +187,8 @@ $total_todayspublished = getRecordCount($con, "books", "WHERE DATE(publication_d
                     </button>
                 </div>
                 <div style="background-color: transparent; ">
-                    <label for="addBooks" style="color:white; background-color: transparent;">Add Books</label>
+                <label for="addBooksFormContainer" style="color:white; background-color: transparent;">Add Books</label>
+
                 </div>
               </div>
               <?php
@@ -477,7 +478,7 @@ $total_todayspublished = getRecordCount($con, "books", "WHERE DATE(publication_d
              
 
                 <form class="d-flex" style="margin-bottom: 5px;">
-                    <input class="form-control search" type="text" id="userSearchInput" placeholder="Search by id, name or email" name="search" aria-label="Search">
+                    <input class="form-control search" type="text" id="userSearchInput" placeholder="Search by id, name or department" name="search" aria-label="Search">
                 </form>
             </div>
             <div class="container-fluid overflow-y-scroll rounded bg-dark p-4">
@@ -492,8 +493,8 @@ $total_todayspublished = getRecordCount($con, "books", "WHERE DATE(publication_d
                     <thead>
                       <tr>
                         <th scope="col">Employee ID</th>
-                        <th scope="col">Lastname</th>
-                        <th scope="col">Firstname</th>
+                        <th scope="col">Last name</th>
+                        <th scope="col">First name</th>
                         <th scope="col">Department</th>
                       </tr>
                     </thead>';
