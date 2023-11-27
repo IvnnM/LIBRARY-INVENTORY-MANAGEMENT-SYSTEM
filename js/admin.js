@@ -251,17 +251,15 @@ function signupLibrarian(empid, email, password) {
 
 
 
-
-
 function addBook() {
   Swal.fire({
     title: "Publish Book",
     html:
-    '<div class="title-container">' +
+      '<div id="addBooksFormContainer" class="title-container">' +
       '<br>' +
       '<h6 class="text-start title">Book details</h6>' +
-    '</div>' +
-    '<div class="input-group mb-3">' +
+      '</div>' +
+      '<div class="input-group mb-3">' +
       '<span class="input-group-text">ISBN and Title</span>' +
       '<input id="isbn" type="text" placeholder="International Standard Book Number" aria-label="isbn" class="form-control">' +
       '<input id="title" type="text" placeholder="Title of the book" aria-label="title" class="form-control">' +
@@ -296,6 +294,8 @@ function addBook() {
       const genre = Swal.getPopup().querySelector("#genre").value.trim();
       const description = Swal.getPopup().querySelector("#description").value.trim();
       const quantity = Swal.getPopup().querySelector("#quantity").value.trim();
+      console.log("Description Value:", description);
+      console.log(typeof description); // Check the type of description
 
       // Validate the inputs
       if (!isbn || !title || !author || !genre || !description || !quantity) {

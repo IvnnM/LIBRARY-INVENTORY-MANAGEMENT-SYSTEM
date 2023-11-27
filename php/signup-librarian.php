@@ -12,6 +12,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["empid"]) && isset($_PO
     $email = $_POST["email"];
     $password = $_POST["password"];
 
+    // Hash the password
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
     // Check if the given empid exists in tbempinfo
     $checkEmpIdQuery = "SELECT * FROM tbempinfo WHERE empid = ?";
     $stmtCheckEmpId = $con->prepare($checkEmpIdQuery);
@@ -30,10 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["empid"]) && isset($_PO
         if ($resultLibrarian->num_rows > 0) {
             echo json_encode(["success" => false, "message" => "Invalid id. Employee is already a librarian."]);
         } else {
-            // Insert into tb_librarian
+            // Insert into tb_librarian with hashed password
             $insertLibrarianQuery = "INSERT INTO tb_librarian (empid, email, password) VALUES (?, ?, ?)";
             $stmtInsertLibrarian = $con->prepare($insertLibrarianQuery);
-            $stmtInsertLibrarian->bind_param("iss", $empid, $email, $password);
+            $stmtInsertLibrarian->bind_param("iss", $empid, $email, $hashedPassword);
 
             if ($stmtInsertLibrarian->execute()) {
                 echo json_encode(["success" => true, "message" => "Librarian account created successfully"]);
