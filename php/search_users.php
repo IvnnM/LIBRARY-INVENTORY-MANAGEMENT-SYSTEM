@@ -9,7 +9,7 @@ if (isset($_SESSION["user_id"])) {
     $search = $_GET['search'];
 
     // Build the SQL query to search for users based on name or email
-    $sql = "SELECT * FROM tbempinfo WHERE (lastname LIKE '%$search%' OR firstname LIKE '%$search%' OR department LIKE '%$search%' OR empid LIKE '%$search%')";
+    $sql = "SELECT * FROM tbempinfo WHERE (lastname LIKE '$search%' OR firstname LIKE '$search%' OR department LIKE '$search%' OR empid LIKE '$search%')";
 
 
     $result = $con->query($sql);
