@@ -45,15 +45,16 @@
         </div>
         <div class="col-md-11 col-lg-11 d-md-block rounded-top" style="background-color: #eff2e3;">
           <h5 style="margin:0;">Library</h5>
+          <div class="Login">
+              <?php if (isset($_SESSION['user_id'])): ?>
+          </div>
           <span style="font-size: small;">Today is <?php echo $today; ?></span> 
           <div>
             <h2>Hi, <span><?= htmlspecialchars($user["firstname"] . " " . $user["lastname"]) ?></span></h2>
 
             <p>Welcome to the Client Page! Explore available and new release books in the library.</p>
           </div>
-          <div class="Login">
-              <?php if (isset($_SESSION['user_id'])): ?>
-          </div> 
+           
         </div>
       </div>
   </div>
@@ -212,7 +213,7 @@
     </div>  
   </div>
 <?php else: ?>
-  <button id="loginBtn" type="button" class="btn btn-danger" onclick="location.href='adminlogin.html'">
+  <button id="loginBtn" type="button" class="btn btn-danger" onclick="location.href='clientlogin.html'">
     <i class="fa fa-lock"></i> Login
   </button>
 <?php endif; ?>  
