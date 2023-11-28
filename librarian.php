@@ -49,15 +49,16 @@ $today = date('Y-m-d');
         </div>
         <div class="col-md-11 col-lg-11 d-md-block rounded-top" style="background-color: #eff2e3;">
           <h5 style="margin:0;">Inventory</h5>
+          <div class="Login">
+              <?php if (isset($_SESSION['user_id'])): ?>
+          </div>
           <span style="font-size: small;">Today is <?php echo $today; ?></span>  
           <div>
             <h2>Hi, <span><?= htmlspecialchars($user["firstname"] . " " . $user["lastname"]) ?></span></h2>
 
             <p>Welcome to the Librarian Page! Manage book inventory, track ins and outs, and view current stocks.</p>
           </div>
-          <div class="Login">
-              <?php if (isset($_SESSION['user_id'])): ?>
-          </div> 
+          
         </div>
       </div>
   </div>
