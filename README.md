@@ -5,13 +5,22 @@ A comprehensive library inventory management system to keep track of books, mana
 ## Table of Contents
 
 - Introduction
+- Objectives
 - Features
 - Installation
 - Requirements
 - Usage
 - Built With
-- Acknowledgment
 - Contacts
+
+## Objectives
+
+- To create a Library Inventory Management System for Batangas State University Lipa Campus that automates book tracking, reducing errors and manual work.
+- To provide a system that offers real-time book availability information for easier user assistance.
+- To make it easy for library staff to update and manage book records.
+- To access reports for improved decision-making on book additions and inventory control.
+- To improve the library experience by ensuring books are readily available to users and reducing wait times.
+
 
 ## Introduction
 
@@ -43,7 +52,7 @@ To get started with the Library Inventory Management System, follow these steps:
 ### Usage
 - Access the index.html file via vs code to browser(must open the wamp server) and slide to see the admin login and give admin@g as username and admin as password
 
-#### Built With
+### Built With
 - PHP - Scripting language
 - MySQL - Database management system
 - HTML - Basic markup
@@ -52,7 +61,7 @@ To get started with the Library Inventory Management System, follow these steps:
 - Sweatalert - Responsive framework
 - Java - JS framework
 
-##### Contacts
+### Members
 - IvnnM
 - chrisjohn21
 - hrvymndz18
