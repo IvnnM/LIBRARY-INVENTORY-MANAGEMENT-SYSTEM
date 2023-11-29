@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 28, 2023 at 08:01 AM
+-- Generation Time: Nov 29, 2023 at 06:07 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_7g`
+-- Database: `db_9g`
 --
 
 DELIMITER $$
@@ -190,6 +190,82 @@ INSERT INTO `account_tbl` (`AdminId`, `empid`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `addquantity`
+--
+
+DROP TABLE IF EXISTS `addquantity`;
+CREATE TABLE IF NOT EXISTS `addquantity` (
+  `equipmentId` int NOT NULL,
+  `quantity` int DEFAULT NULL,
+  `purchaseDate` datetime DEFAULT NULL,
+  `equipmentCondition` varchar(255) DEFAULT NULL,
+  `empid` int DEFAULT NULL,
+  PRIMARY KEY (`equipmentId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `addquantity`
+--
+
+INSERT INTO `addquantity` (`equipmentId`, `quantity`, `purchaseDate`, `equipmentCondition`, `empid`) VALUES
+(3, 2, '2023-11-28 21:16:00', 'Poor', 3),
+(2, 3, '2023-11-28 21:15:00', 'Good', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `empid` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `empid` (`empid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `email`, `password`, `empid`) VALUES
+(1, 'admin', 'admin123@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `archived_equipment`
+--
+
+DROP TABLE IF EXISTS `archived_equipment`;
+CREATE TABLE IF NOT EXISTS `archived_equipment` (
+  `archivedId` int NOT NULL AUTO_INCREMENT,
+  `equipmentId` int NOT NULL,
+  `archivedDate` datetime DEFAULT NULL,
+  `equipmentName` varchar(255) NOT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  `description` text,
+  `equipmentImage` varchar(255) DEFAULT NULL,
+  `empid` int DEFAULT NULL,
+  `removalReason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  PRIMARY KEY (`archivedId`)
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `archived_equipment`
+--
+
+INSERT INTO `archived_equipment` (`archivedId`, `equipmentId`, `archivedDate`, `equipmentName`, `brand`, `quantity`, `description`, `equipmentImage`, `empid`, `removalReason`) VALUES
+(48, 1, '2023-11-28 20:50:21', 'Soccer Ball', 'Brand A', 100, 'Description for Soccer Ball', '/SIA/images/soccer_ball.jpg', 2, 'Obsolete');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `books`
 --
 
@@ -268,6 +344,103 @@ INSERT INTO `book_transactions` (`transactionID`, `userID`, `bookID`, `inQuantit
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `equipment`
+--
+
+DROP TABLE IF EXISTS `equipment`;
+CREATE TABLE IF NOT EXISTS `equipment` (
+  `equipmentId` int NOT NULL AUTO_INCREMENT,
+  `equipmentName` varchar(255) NOT NULL,
+  `equipmentCategoryId` int NOT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `description` text,
+  `locationId` int DEFAULT NULL,
+  `equipmentImage` blob,
+  `empid` int DEFAULT NULL,
+  PRIMARY KEY (`equipmentId`),
+  KEY `equipmentCategoryId` (`equipmentCategoryId`),
+  KEY `locationId` (`locationId`),
+  KEY `fk_empid` (`empid`)
+) ENGINE=MyISAM AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `equipment`
+--
+
+INSERT INTO `equipment` (`equipmentId`, `equipmentName`, `equipmentCategoryId`, `brand`, `description`, `locationId`, `equipmentImage`, `empid`) VALUES
+(1, 'Soccer Ball', 1, 'Brand A', 'Description for Soccer Ball', 1, 0x2f5349412f696d616765732f736f636365725f62616c6c2e6a7067, 1),
+(2, 'Basketball', 2, 'Brand B', 'Description for Basketball', 2, 0x2f5349412f696d616765732f6261736b657462616c6c2e6a7067, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `equipmentcategories`
+--
+
+DROP TABLE IF EXISTS `equipmentcategories`;
+CREATE TABLE IF NOT EXISTS `equipmentcategories` (
+  `categoryId` int NOT NULL AUTO_INCREMENT,
+  `categoryName` varchar(255) NOT NULL,
+  PRIMARY KEY (`categoryId`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `equipmentcategories`
+--
+
+INSERT INTO `equipmentcategories` (`categoryId`, `categoryName`) VALUES
+(1, 'Soccer'),
+(2, 'Basketball'),
+(3, 'Tennis'),
+(4, 'Baseball'),
+(5, 'Volleyball');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `equipmentremovalrequests`
+--
+
+DROP TABLE IF EXISTS `equipmentremovalrequests`;
+CREATE TABLE IF NOT EXISTS `equipmentremovalrequests` (
+  `requestId` int NOT NULL AUTO_INCREMENT,
+  `equipmentId` int NOT NULL,
+  `requestDate` datetime DEFAULT NULL,
+  `removalReason` text,
+  `quantityToRemove` int DEFAULT NULL,
+  `empid` int DEFAULT NULL,
+  PRIMARY KEY (`requestId`),
+  KEY `equipmentId` (`equipmentId`)
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `equipmentremovalrequests`
+--
+
+INSERT INTO `equipmentremovalrequests` (`requestId`, `equipmentId`, `requestDate`, `removalReason`, `quantityToRemove`, `empid`) VALUES
+(34, 1, '2023-11-28 20:50:00', 'Obsolete', 100, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `equipmentupdates`
+--
+
+DROP TABLE IF EXISTS `equipmentupdates`;
+CREATE TABLE IF NOT EXISTS `equipmentupdates` (
+  `updateId` int NOT NULL AUTO_INCREMENT,
+  `equipmentId` int NOT NULL,
+  `updateDate` datetime DEFAULT NULL,
+  `originalValue` text,
+  `valueToAdd` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `empid` int DEFAULT NULL,
+  PRIMARY KEY (`updateId`),
+  KEY `equipmentId` (`equipmentId`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `instocks_details`
 --
 
@@ -328,6 +501,103 @@ INSERT INTO `in_stocks` (`product_id`, `stocks_qnt`) VALUES
 (19, 0),
 (20, 0),
 (21, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `locations`
+--
+
+DROP TABLE IF EXISTS `locations`;
+CREATE TABLE IF NOT EXISTS `locations` (
+  `locationId` int NOT NULL AUTO_INCREMENT,
+  `locationName` varchar(255) NOT NULL,
+  `locationDescription` text,
+  PRIMARY KEY (`locationId`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`locationId`, `locationName`, `locationDescription`) VALUES
+(1, 'Equipment Room 1', 'Description for Equipment Room 1'),
+(2, 'Equipment Room 2', 'Description for Equipment Room 2'),
+(3, 'Storage Area A', 'Description for Storage Area A'),
+(4, 'Storage Area B', 'Description for Storage Area B'),
+(5, 'Gymnasium', 'Description for Gymnasium');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_logout_log`
+--
+
+DROP TABLE IF EXISTS `login_logout_log`;
+CREATE TABLE IF NOT EXISTS `login_logout_log` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `userRole` varchar(255) NOT NULL,
+  `event_type` enum('login','logout') NOT NULL,
+  `timestamp` datetime NOT NULL,
+  `empid` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=634 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `login_logout_log`
+--
+
+INSERT INTO `login_logout_log` (`id`, `username`, `userRole`, `event_type`, `timestamp`, `empid`) VALUES
+(633, 'remover', 'equipment remover', 'login', '2023-11-28 23:27:28', NULL),
+(632, 'admin', 'admin', 'logout', '2023-11-28 23:27:23', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu`
+--
+
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE IF NOT EXISTS `menu` (
+  `food_id` int NOT NULL AUTO_INCREMENT,
+  `available_menu` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `food_desc` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `price` decimal(4,2) DEFAULT NULL,
+  `image` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`food_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `menu`
+--
+
+INSERT INTO `menu` (`food_id`, `available_menu`, `food_desc`, `price`, `image`) VALUES
+(20, 'Pancit Guisado', 'Regular', '60.00', '64649f7f74d36.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_manager`
+--
+
+DROP TABLE IF EXISTS `order_manager`;
+CREATE TABLE IF NOT EXISTS `order_manager` (
+  `Order_Id` int NOT NULL AUTO_INCREMENT,
+  `Full_Name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Phone_No` bigint NOT NULL,
+  `Address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `Pay_Mode` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`Order_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_manager`
+--
+
+INSERT INTO `order_manager` (`Order_Id`, `Full_Name`, `Phone_No`, `Address`, `Pay_Mode`, `status`) VALUES
+(7, 'new customer', 123456, 'new address', 'COD', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -441,8 +711,8 @@ CREATE TABLE IF NOT EXISTS `tbaccount` (
 --
 
 INSERT INTO `tbaccount` (`accid`, `empid`, `passwordencrypted`) VALUES
-(1, NULL, 'hashed_password1'),
-(2, NULL, 'hashed_password2');
+(1, NULL, 'password1'),
+(2, NULL, 'password2');
 
 -- --------------------------------------------------------
 
@@ -543,6 +813,7 @@ CREATE TABLE IF NOT EXISTS `tbattendance` (
   `empid` int DEFAULT NULL,
   `subjectid` int DEFAULT NULL,
   `facilityid` varchar(10) DEFAULT NULL,
+  `seatnumber` int NOT NULL,
   `timein` datetime DEFAULT NULL,
   `timeout` datetime DEFAULT NULL,
   PRIMARY KEY (`attendanceid`),
@@ -556,8 +827,8 @@ CREATE TABLE IF NOT EXISTS `tbattendance` (
 -- Dumping data for table `tbattendance`
 --
 
-INSERT INTO `tbattendance` (`attendanceid`, `studid`, `empid`, `subjectid`, `facilityid`, `timein`, `timeout`) VALUES
-(0, NULL, NULL, NULL, NULL, '2023-11-28 14:08:18', '2023-11-28 14:08:18');
+INSERT INTO `tbattendance` (`attendanceid`, `studid`, `empid`, `subjectid`, `facilityid`, `seatnumber`, `timein`, `timeout`) VALUES
+(0, NULL, NULL, NULL, NULL, 0, '2023-11-28 14:08:18', '2023-11-28 14:08:18');
 
 -- --------------------------------------------------------
 
@@ -637,46 +908,10 @@ CREATE TABLE IF NOT EXISTS `tbfacility` (
 --
 
 INSERT INTO `tbfacility` (`facilityid`, `buildingname`, `roomnumber`) VALUES
-('HC2003', 'HEB', 'Comlab 2'),
-('CC1008', 'CECS', 'Comlab 1'),
-('CC1007', 'CECS', 'Comlab 1'),
-('CC1006', 'CECS', 'Comlab 1'),
-('CC1005', 'CECS', 'Comlab 1'),
-('CC1004', 'CECS', 'Comlab 1'),
-('CC1003', 'CECS', 'Comlab 1'),
-('CC1002', 'CECS', 'Comlab 1'),
 ('CC1001', 'CECS', 'Comlab 1'),
-('HC2002', 'HEB', 'Comlab 2'),
 ('HC2001', 'HEB', 'Comlab 2'),
-('HC1010', 'HEB', 'Comlab 1'),
-('HC1009', 'HEB', 'Comlab 1'),
-('HC1008', 'HEB', 'Comlab 1'),
-('HC1007', 'HEB', 'Comlab 1'),
-('HC1006', 'HEB', 'Comlab 1'),
-('HC1005', 'HEB', 'Comlab 1'),
-('HC1004', 'HEB', 'Comlab 1'),
-('HC1003', 'HEB', 'Comlab 1'),
-('HC1002', 'HEB', 'Comlab 1'),
 ('HC1001', 'HEB', 'Comlab 1'),
-('CC2010', 'CECS', 'Comlab 2'),
-('CC2009', 'CECS', 'Comlab 2'),
-('CC2008', 'CECS', 'Comlab 2'),
-('CC2007', 'CECS', 'Comlab 2'),
-('CC2006', 'CECS', 'Comlab 2'),
-('CC2005', 'CECS', 'Comlab 2'),
-('CC2004', 'CECS', 'Comlab 2'),
-('CC2003', 'CECS', 'Comlab 2'),
-('CC2002', 'CECS', 'Comlab 2'),
-('CC2001', 'CECS', 'Comlab 2'),
-('CC1010', 'CECS', 'Comlab 1'),
-('CC1009', 'CECS', 'Comlab 1'),
-('HC2004', 'HEB', 'Comlab 2'),
-('HC2005', 'HEB', 'Comlab 2'),
-('HC2006', 'HEB', 'Comlab 2'),
-('HC2007', 'HEB', 'Comlab 2'),
-('HC2008', 'HEB', 'Comlab 2'),
-('HC2009', 'HEB', 'Comlab 2'),
-('HC2010', 'HEB', 'Comlab 2');
+('CC2001', 'CECS', 'Comlab 2');
 
 -- --------------------------------------------------------
 
@@ -780,34 +1015,6 @@ INSERT INTO `tbjobs` (`jobid`, `jobtitle`, `departmentname`, `quantity`, `datepo
 ('JI0008', 'School Dentist', 'Health Services', 1, '2023-11-19', 'Graduate of BS Dentistry', 'At least 1-year relevant experience', 'Dentistry', 'Dentistry', 'None Required', 'false', 'Full'),
 ('JI0006', 'Social Science Lecturers', 'College of Teacher Education', 3, '2023-01-01', 'Bachelor of Arts in Social Science or any related Bachelor\'s Degree with relevant Master\'s Degree', 'Two (2) years of relevant experience', 'None Required', 'Possess competent knowledge in the field of Social Science; good at communication, listening, collaboration, and adaptability', 'None Required', 'Terms and conditions of employment will be discussed during interview', 'Active'),
 ('JI0007', 'System Admin', 'ICT Services', 2, '2023-11-19', 'Graduate of Bachelor of Science in Information Technology or Computer Science', 'With at least experience in working IT industry, or handles project related to IT', 'IT', 'IT', 'None Required', 'true', 'Active');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblempsubject`
---
-
-DROP TABLE IF EXISTS `tblempsubject`;
-CREATE TABLE IF NOT EXISTS `tblempsubject` (
-  `empid` int NOT NULL,
-  `subjectid` int NOT NULL,
-  PRIMARY KEY (`empid`,`subjectid`),
-  KEY `subjectid` (`subjectid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `tblempsubject`
---
-
-INSERT INTO `tblempsubject` (`empid`, `subjectid`) VALUES
-(1, 1),
-(1, 3),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5),
-(6, 6),
-(7, 7);
 
 -- --------------------------------------------------------
 
@@ -955,6 +1162,31 @@ INSERT INTO `tbl_visitorlogs` (`visitorLogsId`, `VisitorName`, `LogDate`, `TimeI
 (2, 'Otis Milburn', '20-November-2023 Monday', '12:34:16 AM', '12:34:23 AM', 'TIME IN', 'TIME OUT'),
 (3, 'Waley Bayola', '20-November-2023 Monday', '12:34:52 AM', '12:34:59 AM', 'TIME IN', 'TIME OUT'),
 (4, 'Maeve Wiley', '20-November-2023 Monday', '12:51:00 AM', '12:51:09 AM', 'TIME IN', 'TIME OUT');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbstuddepartment`
+--
+
+DROP TABLE IF EXISTS `tbstuddepartment`;
+CREATE TABLE IF NOT EXISTS `tbstuddepartment` (
+  `studid` varchar(20) NOT NULL,
+  `deptid` int NOT NULL,
+  PRIMARY KEY (`studid`,`deptid`),
+  KEY `deptid` (`deptid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tbstuddepartment`
+--
+
+INSERT INTO `tbstuddepartment` (`studid`, `deptid`) VALUES
+('21-33827', 101),
+('21-34693', 102),
+('21-35459', 102),
+('21-35608', 101),
+('21-38479', 103);
 
 -- --------------------------------------------------------
 
@@ -1175,6 +1407,28 @@ INSERT INTO `tb_client` (`clientID`, `studid`, `email`, `password`, `role`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_empinfo`
+--
+
+DROP TABLE IF EXISTS `tb_empinfo`;
+CREATE TABLE IF NOT EXISTS `tb_empinfo` (
+  `empid` int NOT NULL AUTO_INCREMENT,
+  `lastname` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `firstname` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `department` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`empid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_empinfo`
+--
+
+INSERT INTO `tb_empinfo` (`empid`, `lastname`, `firstname`, `department`) VALUES
+(1, 'aguila', 'nina', 'cics');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_librarian`
 --
 
@@ -1219,6 +1473,58 @@ CREATE TABLE IF NOT EXISTS `tb_studinfo` (
 INSERT INTO `tb_studinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
 (1, 'parker', 'peter', 'bsit'),
 (2, 'kent', 'clark', 'bscs');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_users`
+--
+
+DROP TABLE IF EXISTS `tb_users`;
+CREATE TABLE IF NOT EXISTS `tb_users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `studid` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `studid` (`studid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_users`
+--
+
+INSERT INTO `tb_users` (`id`, `username`, `email`, `password`, `studid`) VALUES
+(1, 'user', 'user123@gmail.com', 'ee11cbb19052e40b07aac0ca060c23ee', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `userId` int NOT NULL AUTO_INCREMENT,
+  `userName` varchar(255) NOT NULL,
+  `userRole` varchar(255) NOT NULL,
+  `passwordHash` varchar(255) NOT NULL,
+  `firstName` varchar(255) NOT NULL,
+  `lastName` varchar(255) NOT NULL,
+  `userImage` varchar(255) DEFAULT NULL,
+  `empid` int DEFAULT NULL,
+  PRIMARY KEY (`userId`),
+  KEY `fk_empid` (`empid`)
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userId`, `userName`, `userRole`, `passwordHash`, `firstName`, `lastName`, `userImage`, `empid`) VALUES
+(45, 'remover', 'equipment remover', '$2y$10$ORIaWsSqMhOwv0FP3ChLc.2hS2.BUi44BW00x1tjTOIdcN/.jhR3O', 'John', 'Doe', 'user_images/6565faa6208f1_ericka_img.png', 2),
+(40, 'admin', 'admin', '$2y$10$8Qtz/TaSGCMmcfI1lQLd4uGQCzI4QKesE5uDFbSDGW3pgMAUd/xe2', 'nina', 'aguila', 'user_images/6565e57919e43_mig_img.png', 1);
 
 -- --------------------------------------------------------
 
@@ -1284,6 +1590,12 @@ INSERT INTO `visitor_infotbl` (`visitor_no`, `visitor_name`, `visitor_add`, `vis
 --
 ALTER TABLE `account_tbl`
   ADD CONSTRAINT `account_admin_id` FOREIGN KEY (`empid`) REFERENCES `tbempinfo` (`empid`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `admin`
+--
+ALTER TABLE `admin`
+  ADD CONSTRAINT `adminid_g9` FOREIGN KEY (`empid`) REFERENCES `tb_empinfo` (`empid`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `instocks_details`
@@ -1371,6 +1683,12 @@ ALTER TABLE `tb_client`
 --
 ALTER TABLE `tb_librarian`
   ADD CONSTRAINT `librarianid` FOREIGN KEY (`empid`) REFERENCES `tbempinfo` (`empid`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `tb_users`
+--
+ALTER TABLE `tb_users`
+  ADD CONSTRAINT `userid_g9` FOREIGN KEY (`studid`) REFERENCES `tb_studinfo` (`studid`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `visiting_infotbl`
