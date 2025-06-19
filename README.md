@@ -2,17 +2,6 @@
 
 A comprehensive library inventory management system to keep track of books, manage loans, and streamline library operations.
 
-## Table of Contents
-
-- Introduction
-- Objectives
-- Features
-- Installation
-- Requirements
-- Usage
-- Built With
-- Contacts
-
 ## Objectives
 
 - To create a Library Inventory Management System for Batangas State University Lipa Campus that automates book tracking, reducing errors and manual work.
@@ -20,11 +9,6 @@ A comprehensive library inventory management system to keep track of books, mana
 - To make it easy for library staff to update and manage book records.
 - To access reports for improved decision-making on book additions and inventory control.
 - To improve the library experience by ensuring books are readily available to users and reducing wait times.
-
-
-## Introduction
-
-Briefly introduce your library inventory management system. Highlight its main features and benefits.
 
 ## Features
 
@@ -38,7 +22,7 @@ Briefly introduce your library inventory management system. Highlight its main f
 To get started with the Library Inventory Management System, follow these steps:
 
 - Clone the repository to your local machine.
-- Create a blank BD called db_ba3102 in PhpAdmin
+- Create a blank DB called db_ba3102 in PhpAdmin
 - Open the wamp or xampp for connection
 
 ### Requirements
@@ -61,10 +45,10 @@ To get started with the Library Inventory Management System, follow these steps:
 - Sweatalert - Responsive framework
 - Java - JS framework
 
-### Members
-- IvnnM
-- chrisjohn21
-- hrvymndz18
-- Jmripnlgn
-- marcandreii
+![image](https://github.com/user-attachments/assets/ffd91c05-47e3-4eff-8239-880c0f8c7fae)
+
+![image](https://github.com/user-attachments/assets/12e24bcf-48b7-4294-9283-2c55498b5e93)
+
+![image](https://github.com/user-attachments/assets/b708e5fc-5b08-40f6-b412-901b64b13e95)
+
 
